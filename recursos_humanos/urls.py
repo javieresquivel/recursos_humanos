@@ -6,7 +6,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'recursos_humanos.views.home', name='home'),
+    url(r'^$', 'publico.views.home', name='home'),
     # url(r'^recursos_humanos/', include('recursos_humanos.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
