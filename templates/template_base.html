@@ -4,12 +4,11 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{% block titulo %}{% endblock %}</title>
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap/css/prettify.css">
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/flat-ui.css">
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/erp.css">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/font-awesome.css">
 	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.10.2.min.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui-1.10.3.custom.min.js"></script>	
+	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-ui-1.10.3.custom.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
 	{% block css %}{% endblock %}
 	{% block js %}{% endblock %}
 </head>
@@ -24,12 +23,24 @@
 				<ul class="nav navbar-nav navbar-left">
 					{% block navegacion %}
 					{% endblock %}
-				</ul>	 
+				</ul>	
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">{% block nombre_usuario %}{% endblock %}</a>
-						<ul>
-							<li><a href="">Configuración</a></li>
-							<li><a href="">Cerrar sesión</a></li>
+					
+				</ul> 
+				<!-- --> 
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="#">
+							<i class="fa fa-envelope"></i>
+						</a>
+					</li>
+					<li class="dropdown">
+						<a href="#" clas="dropdown-toggle" data-toggle="dropdown">
+							<i class="fa fa-user"></i> {% block nombre_usuario %}{% endblock %}<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+							<li><a href=""><i class="fa fa-gear"></i> Configuración</a></li>
+							<li><a href=""><i class="fa fa-sign-out"></i> Cerrar sesión</a></li>
 						</ul>
 					</li>
 				</ul>	  
