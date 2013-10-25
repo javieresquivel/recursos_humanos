@@ -29,7 +29,7 @@ class TipoEntrevista (models.Model):
 class Entrevista(models.Model):
 	idEntrevista= models.AutoField(primary_key=True)
 	puntaje= models.FloatField(null=False)
-	observacion= models.CharField(max_length=100, null=False)
+	observacionEntrevista= models.CharField(max_length=100, null=False)
 	tipo= models.ForeignKey(TipoEntrevista)
 	persona=models.ForeignKey(PersonaOfertaEmpleo)
 	def __unicode__(self):
