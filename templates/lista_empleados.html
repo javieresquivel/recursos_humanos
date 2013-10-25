@@ -1,15 +1,17 @@
 {% extends 'rh_base.html' %}
 
-{% block js %}
-
+{% block css %}
+<style type="text/css">
+	#opcionesAgregar, #panelBuscar {
+		display: none;
+	}
+</style>
 {% endblock %}
 
 {% block contenido %}
 <h1>Empleados</h1>
-<div class="btn-group">
-	<label  id="listaBtn" class="btn btn-success btn-sm active">
-		<i class="fa fa-list"></i> Lista
-	</label>
+
+<div id="opcionesLista" class="btn-group">
 	<label  id="agregar" class="btn btn-success btn-sm">
 		<i class="fa fa-plus"></i> Agregar empleado
 	</label>
@@ -19,93 +21,108 @@
 	<label  id="eliminar" href="" class="btn btn-success btn-sm">
 		<i class="fa fa-times"></i> Eliminar
 	</label>
-	<label  id="todo" href="" class="btn btn-success btn-sm">
+	<label  id="seleccionarTodo" href="" class="btn btn-success btn-sm">
 		<i class="fa fa-check"></i> Seleccionar todo
 	</label>
 </div>
-<table id="lista" class="table table-striped" style="margin-top:15px;">
+
+<div id="opcionesAgregar" class="btn-group">
+	<label  id="agregar" class="btn btn-success btn-sm">
+		<i class="fa fa-save"></i> Guardar
+	</label>
+	<label  id="cancelar" href="" class="btn btn-success btn-sm">
+		<i class="fa fa-times"></i> Cancelar
+	</label>
+</div>
+
+<div id="panelBuscar" class="subwell">
+	<div class="row">
+		<div class="col-lg-4">
+			<input type="text" class="form-control"/>
+		</div>
+		<div class="col-lg-4">
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				Action <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#">Action</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-2">
+			<label class="btn btn-primary" style="margin-top:15px;">Buscar</label>
+		</div>
+	</div>
+</div>
+
+<table id="listaEmpleados" class="table table-striped" style="margin-top:15px;">
 	<tr>
 		<th></th>
 		<th>Numero de documento</th>		
 		<th>Nombre completo</th>
 		<th>Dirección</th>
 		<th>Telefono</th>
-		<th>Cargo</th>
-		<th>Estado</th>
 	</tr>
-	<tr>
-		<td><input type="checkbox" value="" id="checkbox1" data-toggle="checkbox"></td>
-		<td>1049632387</td>
-		<td>Sergio Iván Torrado Peñaranda</td>
-		<td>Calle 25 #11-33 Apto 304 Edificio Babaro Plaza II</td>
-		<td>3138699314</td>
-		<td>Ingeniero</td>
-		<td><span class="label label-success">Activo</span></td>
-	</tr>	
-	<tr>
-		<td><input type="checkbox" value="" id="checkbox1" data-toggle="checkbox"></td>
-		<td>1049632387</td>
-		<td>Sergio Iván Torrado Peñaranda</td>
-		<td>Calle 25 #11-33 Apto 304 Edificio Babaro Plaza II</td>
-		<td>3138699314</td>
-		<td>Ingeniero</td>
-		<td><span class="label label-success">Activo</span></td>
-	</tr>	
-	<tr>
-		<td><input type="checkbox" value="" id="checkbox1" data-toggle="checkbox"></td>
-		<td>1049632387</td>
-		<td>Sergio Iván Torrado Peñaranda</td>
-		<td>Calle 25 #11-33 Apto 304 Edificio Babaro Plaza II</td>
-		<td>3138699314</td>
-		<td>Ingeniero</td>
-		<td><span class="label label-danger">Inactivo</span></td>
-	</tr>	
-	<tr>
-		<td><input type="checkbox" value="" id="checkbox1" data-toggle="checkbox"></td>
-		<td>1049632387</td>
-		<td>Sergio Iván Torrado Peñaranda</td>
-		<td>Calle 25 #11-33 Apto 304 Edificio Babaro Plaza II</td>
-		<td>3138699314</td>
-		<td>Ingeniero</td>
-		<td><span class="label label-success">Activo</span></td>
-	</tr>	
-	<tr>
-		<td><input type="checkbox" value="" id="checkbox1" data-toggle="checkbox"></td>
-		<td>1049632387</td>
-		<td>Sergio Iván Torrado Peñaranda</td>
-		<td>Calle 25 #11-33 Apto 304 Edificio Babaro Plaza II</td>
-		<td>3138699314</td>
-		<td>Ingeniero</td>
-		<td><span class="label label-success">Activo</span></td>
-	</tr>	
-	<tr>
-		<td><input type="checkbox" value="" id="checkbox1" data-toggle="checkbox"></td>
-		<td>1049632387</td>
-		<td>Sergio Iván Torrado Peñaranda</td>
-		<td>Calle 25 #11-33 Apto 304 Edificio Babaro Plaza II</td>
-		<td>3138699314</td>
-		<td>Ingeniero</td>
-		<td><span class="label label-success">Activo</span></td>
-	</tr>	
-
+	{% if personas %}
+		{% for persona in personas %}
+		<tr>
+			<td>{{ persona.documento }}</td>
+			<td>{{ persona }}</td>
+			<td>{{ persona.direccion }}</td>
+			<td>{{ persona.telefono }}</td>
+		</tr>
+		{% endfor %}
+		<tr>
+			<td colspan="4">
+				<ul class="pagination">
+				  <li><a href="#">&laquo;</a></li>
+				  <li class="active"><a href="#">1</a></li>
+				  <li><a href="#">2</a></li>
+				  <li><a href="#">3</a></li>
+				  <li><a href="#">4</a></li>
+				  <li><a href="#">5</a></li>
+				  <li><a href="#">&raquo;</a></li>
+				</ul>
+			</td>
+		</tr>
+	{% else %}
+		
+	{% endif %}
 </table>
-<center>
-<ul class="pagination">
-  <li><a href="#">&laquo;</a></li>
-  <li class="active"><a href="#">1</a></li>
-  <li><a href="#">2</a></li>
-  <li><a href="#">3</a></li>
-  <li><a href="#">4</a></li>
-  <li><a href="#">5</a></li>
-  <li><a href="#">&raquo;</a></li>
-</ul>
-</center>
 
 <script type="text/javascript">
 	$("#agregar").click(function() {
-		$(this).addClass("active");
-		$("#listaBtn").removeClass("active");
-		$("#lista").css("display","none");
+		$("#opcionesLista").css("display","none");
+		$("#opcionesAgregar").css("display","inline-block");
+	});
+
+	$("#cancelar").click(function() {
+		$("#lista").css("display","table");
+		$("#opcionesLista").css("display","inline-block");
+		$("#opcionesAgregar").css("display","none");
+	});
+
+	$("#buscar").click(function() {
+		if($(this).hasClass("active")) {
+			$(this).removeClass("active");			
+			$("#panelBuscar").css("display","none");
+		}else{
+			$(this).addClass("active");
+			$("#panelBuscar").css("display","block");
+		}		
+	});
+
+	$("#seleccionarTodo").click(function() {
+		if($(this).hasClass("active")) {
+			$(this).removeClass("active");
+			$('input[type=checkbox]').attr('checked', false);
+		}else{
+			$(this).addClass("active");
+			$('input[type=checkbox]').attr('checked', true);
+		}		
 	});
 
 	$("#listaBtn").click(function() {
