@@ -7,7 +7,8 @@ urlpatterns = patterns('',
     # Examples:
     #url(r'^$', '.views.home', name='home'),
     url(r'^empleado/', include('empleado.urls')),
-	url(r'^lista_empleados', 'empleado.views.lista_empleados', name='lista_empleados'),
+	url(r'^empleados', 'empleado.views.empleados', name='empleados'),
+	url(r'^agregar_empleado', 'empleado.views.agregar_empleado', name='agregar_empleado'),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 

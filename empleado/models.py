@@ -16,6 +16,7 @@ class Contrato(models.Model):
     fechaFinal= models.DateField(auto_now=False)
     def __unicode__(self):
             return self.tipo
+                
 class Rol(models.Model):
     idRol= models.AutoField(primary_key=True)
     nombreRol= models.CharField(max_length=100, null=False)

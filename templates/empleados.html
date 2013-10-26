@@ -1,0 +1,223 @@
+{% extends 'rh_base.html' %}
+
+{% block css %}
+<style type="text/css">
+	#opcionesAgregar, #panelBuscar, #panelAgregar {
+		display: none;
+	}
+</style>
+{% endblock %}
+
+{% block contenido %}
+<h1>Empleados</h1>
+
+<div id="opcionesLista" class="btn-group">
+	<label  id="agregar" class="btn btn-success btn-sm">
+		<i class="fa fa-plus"></i> Agregar empleado
+	</label>
+	<label  id="buscar" href="" class="btn btn-success btn-sm">
+		<i class="fa fa-search"></i> Buscar
+	</label>
+	<label  id="eliminar" href="" class="btn btn-success btn-sm">
+		<i class="fa fa-times"></i> Eliminar
+	</label>
+	<label  id="seleccionarTodo" href="" class="btn btn-success btn-sm">
+		<i class="fa fa-check"></i> Seleccionar todo
+	</label>
+</div>
+
+<div id="opcionesAgregar" class="btn-group">
+	<label  id="agregar" class="btn btn-success btn-sm">
+		<i class="fa fa-save"></i> Guardar
+	</label>
+	<label  id="cancelar" href="" class="btn btn-success btn-sm">
+		<i class="fa fa-times"></i> Cancelar
+	</label>
+</div>
+
+<div id="panelBuscar" class="subwell">
+	<div class="row">
+		<div class="col-lg-4">
+			<input type="text" class="form-control"/>
+		</div>
+		<div class="col-lg-4">
+			<div class="btn-group">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				Action <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#">Action</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-2">
+			<label class="btn btn-primary" style="margin-top:15px;">Buscar</label>
+		</div>
+	</div>
+</div>
+
+<div id="panelAgregar">
+	<form role="form">
+		<h2>1. Información personal</h2>
+		<div class="row">			
+			<div class="form-group col-lg-6">
+			    <label for="nombre">Nombre</label>
+			    <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+			</div>
+			<div class="form-group col-lg-6">
+			    <label for="documento">Numero de documento</label>
+			    <input type="text" class="form-control" id="documento" placeholder="Numero de documento">
+			</div>
+		</div>
+		<div class="row">			
+			<div class="form-group col-lg-6">
+			    <label for="apellidos">Apellidos</label>
+			    <input type="text" class="form-control" id="apellidos" placeholder="Apellidos">
+			</div>
+			<div class="form-group col-lg-6">
+			    <label for="domicilio">Domicilio</label>
+			    <input type="text" class="form-control" id="domicilio" placeholder="Domicilio">
+			</div>
+		</div>
+		<div class="row">			
+			<div class="form-group col-lg-6">
+			    <label for="telefono1">Telefono principal</label>
+			    <input type="text" class="form-control" id="telefono1" placeholder="Telefono principal">
+			</div>
+			<div class="form-group col-lg-6">
+			    <label for="telefono2">Telefono secundario</label>
+			    <input type="text" class="form-control" id="telefono2" placeholder="Telefono secundario">
+			</div>
+		</div>
+		<hr>
+		<h2>2. Contrato</h2>
+		<div class="row">			
+			<div class="form-group col-lg-6">
+			    <label for="contrato">Archivo de contrato</label>
+			    <input type="file" id="contrato">
+			</div>
+			<div class="form-group col-lg-6">
+			    <label for="tipoContrato">Tipo de contrato</label>
+			    <select class="form-control">
+			    	<option></option>
+			    </select>
+			</div>
+		</div>
+		<div class="row">			
+			<div class="form-group col-lg-6">
+			    <label for="fechaInicio">Fecha de inicio</label>
+			    <input type="date" class="form-control" id="fechaInicio">
+			</div>
+			<div class="form-group col-lg-6">
+			    <label for="fechaFin">Fecha de finalización</label>
+			    <input type="date" class="form-control" id="fechaFin">
+			</div>
+		</div>
+		<hr>
+		<h2>3. Cargo</h2>
+		<div class="row">
+			<div class="form-group col-lg-12">
+			    <label for="cargo">Cargo</label>
+			    <select class="form-control">
+			    	<option></option>
+			    </select>
+			</div>
+		</div>
+		<div class="row">			
+			<div class="form-group col-lg-6">
+			    <label for="fechaInicio1">Fecha de inicio</label>
+			    <input type="date" class="form-control" id="fechaInicio">
+			</div>
+			<div class="form-group col-lg-6">
+			    <label for="fechaFin1">Fecha de finalización</label>
+			    <input type="date" class="form-control" id="fechaFin">
+			</div>
+		</div>
+	</form>
+</div>
+
+<table id="listaEmpleados" class="table table-striped" style="margin-top:15px;">
+	{% if personas %}
+		<tr>
+			<th></th>
+			<th>Numero de documento</th>		
+			<th>Nombre completo</th>
+			<th>Dirección</th>
+			<th>Telefono</th>
+		</tr>
+		{% for persona in personas %}
+		<tr>
+			<td><input type="checkbox"/></td>
+			<td>{{ persona.documento }}</td>
+			<td>{{ persona }}</td>
+			<td>{{ persona.direccion }}</td>
+			<td>{{ persona.telefono1 }}</td>
+		</tr>
+		{% endfor %}
+		{% if personas.has_next or personas.has_previous %}
+			<tr>
+				<td colspan="5">
+					<ul class="pager">
+					{% if personas.has_previous %}
+					  <li><a href="?pagina={{ personas.previous_page_number }}">&laquo; Anterior</a></li>
+					{% else %}
+						<li class="disabled"><a href="#">&laquo; Anterior</a></li>
+					{% endif %}
+					{% if personas.has_next %}
+					  <li><a href="?pagina={{ personas.next_page_number }}">Siguiente &raquo;</a></li>
+					{% else %}
+						<li class="disabled"><a href="#">Siguiente &raquo;</a></li>
+					{% endif %}
+					</ul>
+				</td>
+			</tr>
+        {% endif %}
+	{% else %}
+		<h3 class="text-center">No hay empleados registrados</h3>
+	{% endif %}
+</table>
+
+<script type="text/javascript">
+	$("#agregar").click(function() {
+		$("#opcionesLista").css("display","none");
+		$("#opcionesAgregar").css("display","inline-block");
+		$("#listaEmpleados").css("display","none");
+		$("#panelAgregar").css("display","block");
+	});
+
+	$("#cancelar").click(function() {
+		$("#lista").css("display","table");
+		$("#opcionesLista").css("display","inline-block");
+		$("#opcionesAgregar").css("display","none");
+		$("#listaEmpleados").css("display","table");
+	});
+
+	$("#buscar").click(function() {
+		if($(this).hasClass("active")) {
+			$(this).removeClass("active");			
+			$("#panelBuscar").css("display","none");
+		}else{
+			$(this).addClass("active");
+			$("#panelBuscar").css("display","block");
+		}		
+	});
+
+	$("#seleccionarTodo").click(function() {
+		if($(this).hasClass("active")) {
+			$(this).removeClass("active");
+			$('input[type=checkbox]').attr('checked', false);
+		}else{
+			$(this).addClass("active");
+			$('input[type=checkbox]').attr('checked', true);
+		}		
+	});
+
+	$("#listaBtn").click(function() {
+		$(this).addClass("active");
+		$("#agregar").removeClass("active");
+		$("#lista").css("display","table");
+	});
+</script>
+{% endblock %}

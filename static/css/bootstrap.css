@@ -1765,6 +1765,12 @@ textarea.input-lg {
     margin-left: 0;
   }
 }
+
+.control-label {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 7px;
+}
 .form-horizontal .control-label,
 .form-horizontal .radio,
 .form-horizontal .checkbox,
@@ -3975,7 +3981,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 .pager {
   padding-left: 0;
-  margin: 20px 0;
+  margin: 5px 0;
   list-style: none;
   text-align: center;
 }
